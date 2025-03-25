@@ -31,5 +31,9 @@ Thumbs.db
 # TypeScript cache
 *.tsbuildinfo
 
+# cursor
+mcp.json
+.cursor/tasks
+
 # Others
 coverage/
