@@ -1,0 +1,84 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# NPMライブラリ開発ルール
+
+## 1. コーディング規約
+
+### TypeScript
+- 厳密な型定義を使用する（`strict: true`）
+- publicなAPIは必ず型定義とTSDocコメントを付ける
+- 内部実装の型は`internal.ts`に集約する
+- ジェネリック型は適切に制約を設定する
+
+### React
+- 関数コンポーネントとHooksのみを使用
+- メモ化（useMemo, useCallback）は必要な場合のみ使用
+- カスタムHooksは`use`プレフィックスを付ける
+- Contextは必要最小限の範囲で提供する
+
+### エクスポート
+- パブリックAPIは`index.ts`からのみエクスポート
+- 内部モジュールは`internal/`ディレクトリに配置
+- テスト用ユーティリティは`testing/`ディレクトリに配置
+
+## 2. パッケージ構成
+
+### パッケージ設定
+- `package.json`の`main`フィールドはCommonJS用
+- `module`フィールドはESM用
+- `types`フィールドは型定義用
+- `exports`フィールドでサブパスエクスポートを定義
+
+## 3. テスト規約
+
+### ユニットテスト
+- コンポーネントは`Component.test.tsx`
+- Hooksは`useHook.test.ts`
+- ユーティリティは`util.test.ts`
+- テストカバレッジは80%以上を維持
+
+### E2Eテスト
+- 主要なユースケースをカバー
+- クロスブラウザテストを実施
+- パフォーマンステストを含める
+
+## 4. ドキュメント規約
+
+### Doc
+- 公開APIは必ずDocを記述
+- パラメータの型と説明を明記
+- 戻り値の型と説明を明記
+- 使用例を含める
+
+### Storybook
+- コンポーネントごとにストーリーを作成
+- 主要なユースケースをカバー
+- インタラクティブな例を含める
+
+## 5. バージョン管理
+
+### コミットメッセージ
+- Conventional Commitsに準拠
+- 形式: <type>(<scope>): <description>
+- type: feat, fix, docs, style, refactor, test, chore
+
+### ブランチ戦略
+- main: プロダクションコード
+- develop: 開発用
+- feature/*: 機能追加
+- fix/*: バグ修正
+- release/*: リリース準備
+
+## 6. パフォーマンス要件
+
+### バンドルサイズ
+- Tree Shakingに対応
+- 依存関係は最小限に抑える
+
+### 実行パフォーマンス
+- 不要な再レンダリングを防止
+- メモリリークを防止
+- 非同期処理は適切にキャンセル処理を実装
